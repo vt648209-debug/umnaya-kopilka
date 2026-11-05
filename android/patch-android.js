@@ -27,7 +27,9 @@ let m = fs.readFileSync(mf, 'utf8');
 if (!m.includes('KOPILKA-BRIDGE')) {
   m = m.replace('<uses-permission android:name="android.permission.INTERNET" />', `<uses-permission android:name="android.permission.INTERNET" />
     <!-- KOPILKA-BRIDGE: СМС банков (только чтение входящих, отправки нет) -->
-    <uses-permission android:name="android.permission.RECEIVE_SMS" />`);
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <!-- кнопка «Загрузить СМС банка»: чтение входящих только по нажатию, фильтр банков и кодов на телефоне -->
+    <uses-permission android:name="android.permission.READ_SMS" />`);
   m = m.replace(/(<activity[\s\S]*?<\/intent-filter>)/, `$1
 
             <!-- «Поделиться → Умная копилка» -->

@@ -1,0 +1,56 @@
+# Сборка Android-приложения «Умная копилка» (Capacitor + пересыльщик уведомлений и СМС).
+# Запускается при изменении сайта или папки android/, а также вручную (Actions → Android APK → Run workflow).
+# Готовый APK — в Releases; постоянная ссылка: /releases/latest/download/umnaya-kopilka.apk
+name: Android APK
+on:
+  push:
+    branches: [main]
+    paths: ['index.html', 'android/**', '.github/workflows/android.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: '21' }
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+      - name: Проект Capacitor + пересыльщик
+        working-directory: android
+        env: { BUILD_NUMBER: '${{ github.run_number }}' }
+        run: |
+          npm install --no-audit --no-fund
+          node prepare-www.js
+          npx cap add android
+          npx cap sync android
+          node patch-android.js
+      - name: Релизный ключ (если задан в секретах)
+        env: { KS: '${{ secrets.KOPILKA_KEYSTORE_B64 }}' }
+        run: |
+          if [ -n "$KS" ]; then echo "$KS" | base64 -d > "$RUNNER_TEMP/kopilka.jks"; echo "KOPILKA_KEYSTORE=$RUNNER_TEMP/kopilka.jks" >> "$GITHUB_ENV"; fi
+      - name: Тесты фильтра и сборка APK
+        working-directory: android/android
+        env:
+          KOPILKA_STORE_PASSWORD: '${{ secrets.KOPILKA_STORE_PASSWORD }}'
+          KOPILKA_KEY_ALIAS: '${{ secrets.KOPILKA_KEY_ALIAS }}'
+          KOPILKA_KEY_PASSWORD: '${{ secrets.KOPILKA_KEY_PASSWORD }}'
+        run: |
+          chmod +x gradlew
+          ./gradlew --no-daemon :app:testDebugUnitTest
+          if [ -n "$KOPILKA_KEYSTORE" ]; then
+            ./gradlew --no-daemon :app:assembleRelease
+            cp app/build/outputs/apk/release/app-release.apk "$GITHUB_WORKSPACE/umnaya-kopilka.apk"
+          else
+            ./gradlew --no-daemon :app:assembleDebug
+            cp app/build/outputs/apk/debug/app-debug.apk "$GITHUB_WORKSPACE/umnaya-kopilka.apk"
+          fi
+      - uses: actions/upload-artifact@v4
+        with: { name: umnaya-kopilka-apk, path: umnaya-kopilka.apk }
+      - name: Выложить в Releases
+        env: { GH_TOKEN: '${{ github.token }}' }
+        run: |
+          V=$(node -p "require('./android/package.json').version")
+          gh release create "apk-$V-${{ github.run_number }}" umnaya-kopilka.apk --title "Умная копилка для Android $V (сборка ${{ github.run_number }})" --notes "Тестовая сборка. Установка: открыть файл на телефоне и разрешить установку из этого источника. Пересыльщик читает только уведомления и СМС выбранных банков; сообщения с кодами и паролями отбрасываются на телефоне." --latest

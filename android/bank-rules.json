@@ -1,0 +1,233 @@
+{
+ "version": 1,
+ "banks": [
+  {
+   "id": "sber",
+   "name": "Сбербанк",
+   "packages": [
+    "ru.sberbankmobile",
+    "ru.sberbank.spasibo"
+   ],
+   "senders": [
+    "900",
+    "SBERBANK",
+    "Sberbank",
+    "9000",
+    "8900"
+   ]
+  },
+  {
+   "id": "tbank",
+   "name": "Т-Банк",
+   "packages": [
+    "com.idamob.tinkoff.android",
+    "ru.tinkoff.mb"
+   ],
+   "senders": [
+    "T-Bank",
+    "TBank",
+    "Tinkoff",
+    "T-BANK"
+   ]
+  },
+  {
+   "id": "vtb",
+   "name": "ВТБ",
+   "packages": [
+    "ru.vtb24.mobilebanking.android",
+    "ru.vtb.mobilebanking"
+   ],
+   "senders": [
+    "VTB",
+    "VTB24",
+    "BANK_VTB"
+   ]
+  },
+  {
+   "id": "alfa",
+   "name": "Альфа-Банк",
+   "packages": [
+    "ru.alfabank.mobile.android",
+    "ru.alfabank.oavdo.amc"
+   ],
+   "senders": [
+    "Alfa-Bank",
+    "AlfaBank",
+    "Alfa"
+   ]
+  },
+  {
+   "id": "gpb",
+   "name": "Газпромбанк",
+   "packages": [
+    "ru.gazprombank.android.mobilebank.app"
+   ],
+   "senders": [
+    "Gazprombank",
+    "GPB",
+    "Telecard"
+   ]
+  },
+  {
+   "id": "ozon",
+   "name": "Озон Банк",
+   "packages": [
+    "ru.ozon.fintech.finance",
+    "ru.ozon.bank"
+   ],
+   "senders": [
+    "OZON.bank",
+    "OzonBank",
+    "OZON"
+   ]
+  },
+  {
+   "id": "yandex",
+   "name": "Яндекс Банк",
+   "packages": [
+    "com.yandex.bank"
+   ],
+   "senders": [
+    "YandexBank",
+    "Yandex.Bank"
+   ]
+  },
+  {
+   "id": "pochta",
+   "name": "Почта Банк",
+   "packages": [
+    "ru.letobank.Prometheus"
+   ],
+   "senders": [
+    "POCHTABANK",
+    "Pochta_Bank"
+   ]
+  },
+  {
+   "id": "sovcom",
+   "name": "Совкомбанк (Халва)",
+   "packages": [
+    "ru.sovcomcard.halva.v1",
+    "ru.sovcombank.app"
+   ],
+   "senders": [
+    "Sovcombank",
+    "HALVA"
+   ]
+  },
+  {
+   "id": "raif",
+   "name": "Райффайзен",
+   "packages": [
+    "com.raiffeisen.rmobile"
+   ],
+   "senders": [
+    "Raiffeisen",
+    "RBA"
+   ]
+  },
+  {
+   "id": "rshb",
+   "name": "Россельхозбанк",
+   "packages": [
+    "ru.rshb.dbo"
+   ],
+   "senders": [
+    "RSHB",
+    "Rosselhozbank"
+   ]
+  },
+  {
+   "id": "mts",
+   "name": "МТС Банк",
+   "packages": [
+    "ru.mts.money",
+    "ru.mtsbank.mobile"
+   ],
+   "senders": [
+    "MTS-Bank",
+    "MTSBank"
+   ]
+  },
+  {
+   "id": "psb",
+   "name": "ПСБ",
+   "packages": [
+    "logo.com.mbanking"
+   ],
+   "senders": [
+    "PSB",
+    "PSBank"
+   ]
+  },
+  {
+   "id": "ubrr",
+   "name": "УБРиР",
+   "packages": [
+    "ru.ubrr.mobile",
+    "com.ubrr.mb"
+   ],
+   "senders": [
+    "UBRR",
+    "UBRiR"
+   ]
+  },
+  {
+   "id": "hlynov",
+   "name": "Банк Хлынов",
+   "packages": [
+    "ru.bank_hlynov.xbank",
+    "ru.hlynov.mobile"
+   ],
+   "senders": [
+    "HLYNOV",
+    "Hlynov"
+   ]
+  }
+ ],
+ "secretWords": [
+  "(^|[^a-zа-я])код",
+  "(^|[^a-z])code",
+  "парол",
+  "password",
+  "никому",
+  "не сообщайте",
+  "не говорите",
+  "не называйте",
+  "одноразов",
+  "(^|[^a-z])otp([^a-z]|$)",
+  "cvv",
+  "cvc",
+  "(^|[^a-z])pin([^a-z]|$)",
+  "(^|[^а-я])пин([^а-я]|$)",
+  "вход в",
+  "войти в",
+  "подтвердите",
+  "для подтверждения",
+  "секретн",
+  "(^|[^a-z])kod([^a-z]|$)"
+ ],
+ "opWords": [
+  "покупка",
+  "оплата",
+  "списан",
+  "зачислен",
+  "поступлен",
+  "перевод",
+  "выдача",
+  "снятие",
+  "пополнен",
+  "баланс",
+  "остаток",
+  "доступно",
+  "платеж",
+  "платёж",
+  "возврат",
+  "зарплат",
+  "оплачено",
+  "purchase",
+  "payment",
+  "balance"
+ ],
+ "amount": "\\d[\\d\\s ]*(?:[.,]\\d{1,2})?\\s*(?:₽|руб|rub|rur|р(?![а-яa-z]))"
+}

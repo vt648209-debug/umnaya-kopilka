@@ -1,0 +1,6 @@
+{
+  "appId": "ru.varim.kopilka",
+  "appName": "Умная копилка",
+  "webDir": "www",
+  "android": { "allowMixedContent": false }
+}
